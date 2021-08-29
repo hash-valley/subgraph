@@ -1,6 +1,31 @@
-type Gravatar @entity {
+type Bottle @entity {
   id: ID!
-  owner: Bytes!
-  displayName: String!
-  imageUrl: String!
+  tokenId: BigInt!
+  owner: Account!
+  stakedAt: Int
+  withdrawnAt: Int
+  attributes: BigInt
+  from: Vineyard
+  canEnterCellar: Boolean!
+  inCellar: Boolean!
+  spoiled: Boolean!
+}
+
+type Vineyard @entity {
+  id: ID!
+  tokenId: BigInt!
+  owner: Account!
+  location: Int!
+  elevation: Int!
+  soil: Int!
+  xp: BigInt!
+  bottles: [Bottle!] @derivedFrom(field: "from")
+  seasonsPlanted: [Int!]
+  seasonsHarvested: [Int!]
+}
+
+type Account @entity {
+  id: ID!
+  bottles: [Bottle!] @derivedFrom(field: "owner")
+  vineyards: [Vineyard!] @derivedFrom(field: "owner")
 }
