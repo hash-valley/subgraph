@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 description: Hash Valley
-repository: https://github.com/graphprotocol/example-subgraph
+repository: https://github.com/hash-valley/subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -22,6 +22,8 @@ dataSources:
         - name: VineyardV1
           file: ./abis/VineyardV1.json
       eventHandlers:
+        - event: Start(uint48)
+          handler: handleStart
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleVineyardTransfer
         - event: VineyardMinted(uint256,uint256,uint256,uint256,uint256)

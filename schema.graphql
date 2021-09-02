@@ -1,3 +1,10 @@
+type VineProtocol @entity {
+  id: ID!
+  gameStarted: Boolean!
+  maxVineyards: Int!
+  mintedVineyards: Int!
+}
+
 type Bottle @entity {
   id: ID!
   tokenId: BigInt!

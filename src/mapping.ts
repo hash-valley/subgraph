@@ -1,7 +1,7 @@
 import { Transfer as BottleTransfer, WineBottleV1 as BottleContract } from '../generated/WineBottleV1/WineBottleV1'
-import { Transfer as VineyardTransfer, VineyardMinted, Planted, Harvested, VineyardV1 as VineContract } from '../generated/VineyardV1/VineyardV1'
+import { Transfer as VineyardTransfer, VineyardMinted, Planted, Harvested, VineyardV1 as VineContract, Start } from '../generated/VineyardV1/VineyardV1'
 import { Staked, Withdrawn, Spoiled } from '../generated/Cellar/CellarV1'
-import { Vineyard, Bottle, Account } from '../generated/schema'
+import { Vineyard, Bottle, Account, VineProtocol } from '../generated/schema'
 import { BigInt, Bytes, ipfs, json, log, Wrapped, JSONValue } from "@graphprotocol/graph-ts"
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
@@ -61,6 +61,18 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   }
   vineyard.soil = event.params.soilType.toI32()
   vineyard.save()
+
+  let vineProtocol = VineProtocol.load("0")
+  if (vineProtocol == null) {
+    vineProtocol = new VineProtocol("0")
+    vineProtocol.gameStarted = false
+
+    let vineContract = VineContract.bind(event.address)
+    vineProtocol.maxVineyards = vineContract.maxVineyards().toI32()
+    vineProtocol.mintedVineyards = 0
+  }
+  vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1
+  vineProtocol.save()
 }
 
 export function handlePlanted(event: Planted): void {
@@ -99,4 +111,10 @@ export function handleSpoiled(event: Spoiled): void {
   let bottle = Bottle.load(event.params.tokenId.toHex())
   bottle.spoiled = true
   bottle.save()
+}
+
+export function handleStart(event: Start): void {
+  let protocol = VineProtocol.load("0")
+  protocol.gameStarted = true
+  protocol.save()
 }
