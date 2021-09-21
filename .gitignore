@@ -64,3 +64,5 @@ typings/
 bin
 build
 generated
+
+subgraph.yaml

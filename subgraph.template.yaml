@@ -6,10 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: VineyardV1
-    network: mainnet
+    network: {{ network }}
     source:
-      address: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+      address: '{{ vine_address }}'
       abi: VineyardV1
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -35,10 +36,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: WineBottleV1
-    network: mainnet
+    network: {{ network }}
     source:
-      address: '0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9'
+      address: '{{ bottle_address }}'
       abi: WineBottleV1
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -56,10 +58,11 @@ dataSources:
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Cellar
-    network: mainnet
+    network: {{ network }}
     source:
-      address: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'
+      address: '{{ cellar_address }}'
       abi: CellarV1
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

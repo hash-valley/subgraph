@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "build-contract": "solc contracts/Gravity.sol --abi -o abis --overwrite && solc contracts/Gravity.sol --bin -o bin --overwrite",
+    "prepare": "mustache config.json subgraph.template.yaml > subgraph.yaml && graph codegen",
     "create": "graph create c0rv0s/hashvalley --node https://api.thegraph.com/deploy/",
     "create-local": "graph create c0rv0s/hashvalley --node http://127.0.0.1:8020",
     "codegen": "graph codegen",
@@ -17,6 +18,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
+    "mustache": "^4.2.0",
     "truffle": "^5.0.4",
     "truffle-contract": "^4.0.5",
     "truffle-hdwallet-provider": "^1.0.4"
