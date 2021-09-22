@@ -35,4 +35,5 @@ type Account @entity {
   id: ID!
   bottles: [Bottle!] @derivedFrom(field: "owner")
   vineyards: [Vineyard!] @derivedFrom(field: "owner")
+  vinegarBalance: BigInt!
 }

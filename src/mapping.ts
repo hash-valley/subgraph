@@ -1,5 +1,6 @@
 import { Transfer as BottleTransfer, WineBottleV1 as BottleContract } from '../generated/WineBottleV1/WineBottleV1'
 import { Transfer as VineyardTransfer, VineyardMinted, Planted, Harvested, VineyardV1 as VineContract, Start } from '../generated/VineyardV1/VineyardV1'
+import { Transfer as VinegarTransfer } from '../generated/Vinegar/Vinegar'
 import { Staked, Withdrawn, Spoiled } from '../generated/Cellar/CellarV1'
 import { Vineyard, Bottle, Account, VineProtocol } from '../generated/schema'
 import { BigInt, Bytes, ipfs, json, log, Wrapped, JSONValue } from "@graphprotocol/graph-ts"
@@ -11,9 +12,20 @@ function getOrCreateAccount(address: Bytes): Account {
   let account = Account.load(address.toHex())
   if (account == null) {
     account = new Account(address.toHex())
+    account.vinegarBalance = BigInt.fromString("0")
   }
   account.save()
   return account as Account
+}
+
+export function handleVinegarTransfer(event: VinegarTransfer): void {
+  let from = Account.load(event.params.from.toHex())
+  from.vinegarBalance = from.vinegarBalance.minus(event.params.value)
+  from.save()
+
+  let to = Account.load(event.params.to.toHex())
+  to.vinegarBalance = to.vinegarBalance.plus(event.params.value)
+  to.save()
 }
 
 export function handleBottleTransfer(event: BottleTransfer): void {

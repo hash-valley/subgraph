@@ -21,7 +21,7 @@ dataSources:
         - Bottle
       abis:
         - name: VineyardV1
-          file: ./abis/VineyardV1.json
+          file: ../contracts/abis/VineyardV1.json
       eventHandlers:
         - event: Start(uint48)
           handler: handleStart
@@ -51,7 +51,7 @@ dataSources:
         - Bottle
       abis:
         - name: WineBottleV1
-          file: ./abis/WineBottleV1.json
+          file: ../contracts/abis/WineBottleV1.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleBottleTransfer
@@ -73,7 +73,7 @@ dataSources:
         - Bottle
       abis:
         - name: CellarV1
-          file: ./abis/CellarV1.json
+          file: ../contracts/abis/CellarV1.json
       eventHandlers:
         - event:  Staked(uint256)
           handler: handleStaked
@@ -81,4 +81,26 @@ dataSources:
           handler: handleWithdrawn
         - event: Spoiled(uint256)
           handler: handleSpoiled
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: Vinegar
+    network: {{ network }}
+    source:
+      address: '{{ vinegar_address }}'
+      abi: Vinegar
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - Vineyard
+        - Bottle
+      abis:
+        - name: Vinegar
+          file: ../contracts/abis/Vinegar.json
+      eventHandlers:
+        - event:  Transfer(indexed address,indexed address,uint256)
+          handler: handleVinegarTransfer
       file: ./src/mapping.ts
