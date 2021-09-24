@@ -55,6 +55,8 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleBottleTransfer
+        - event: Rejuvenated(uint256,uint256)
+          handler: handleRejuvenated
       file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Cellar
@@ -103,4 +105,26 @@ dataSources:
       eventHandlers:
         - event:  Transfer(indexed address,indexed address,uint256)
           handler: handleVinegarTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: AddressStorage
+    network: {{ network }}
+    source:
+      address: '{{ address_storage_address }}'
+      abi: AddressStorage
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - VineProtocol
+      abis:
+        - name: AddressStorage
+          file: ../contracts/abis/AddressStorage.json
+        - name: VineyardV1
+          file: ../contracts/abis/VineyardV1.json
+      eventHandlers:
+        - event:  AddressesSet()
+          handler: handleAddressesSet
       file: ./src/mapping.ts

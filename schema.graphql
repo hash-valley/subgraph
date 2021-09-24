@@ -3,6 +3,11 @@ type VineProtocol @entity {
   gameStarted: Boolean!
   maxVineyards: Int!
   mintedVineyards: Int!
+
+  cellar: Bytes!
+  vinegar: Bytes!
+  vineyard: Bytes!
+  bottle: Bytes!
 }
 
 type Bottle @entity {
@@ -16,6 +21,10 @@ type Bottle @entity {
   canEnterCellar: Boolean!
   inCellar: Boolean!
   spoiled: Boolean!
+  burnt: Boolean!
+  rejuvenateCost: BigInt
+  rejuvenatedFrom: Bottle
+  rejuvenatedTo: Bottle
 }
 
 type Vineyard @entity {
