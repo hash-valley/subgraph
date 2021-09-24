@@ -51,10 +51,6 @@ export function handleBottleTransfer(event: BottleTransfer): void {
     let account = getOrCreateAccount(event.params.to)
     bottle.owner = account.id
   }
-  if (event.params.to.toHex() == ZERO_ADDRESS) {
-    bottle.owner = ZERO_ADDRESS
-    bottle.burnt = true
-  }
   bottle.save()
 }
 
@@ -135,6 +131,7 @@ export function handleSpoiled(event: Spoiled): void {
 export function handleRejuvenated(event: Rejuvenated): void {
   let oldBottle = Bottle.load(event.params.oldTokenId.toHex())
   oldBottle.owner = ZERO_ADDRESS
+  oldBottle.burnt = true
   oldBottle.rejuvenatedTo = event.params.newTokenId.toHex()
   oldBottle.save()
 
