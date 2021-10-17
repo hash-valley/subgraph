@@ -63,7 +63,6 @@ export function handleVineyardTransfer(event: VineyardTransfer): void {
     vineyard.elevation = 0
     vineyard.soil = 0
     vineyard.xp = BigInt.fromI32(0)
-    vineyard.streak = 0
     vineyard.seasonsPlanted = []
     vineyard.seasonsHarvested = []
   }
@@ -99,7 +98,6 @@ export function handleHarvested(event: Harvested): void {
 
   let contract = VineContract.bind(event.address)
   vineyard.xp = contract.xp(event.params.tokenId)
-  vineyard.streak = contract.currentStreak(event.params.tokenId)
   vineyard.save()
 
   let bottle = Bottle.load(event.params.bottleId.toHex())
