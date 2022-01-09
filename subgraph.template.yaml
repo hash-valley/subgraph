@@ -13,7 +13,7 @@ dataSources:
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Account
@@ -33,7 +33,15 @@ dataSources:
           handler: handlePlanted
         - event: Harvested(uint256,uint256,uint256)
           handler: handleHarvested
-      file: ./src/mapping.ts
+        - event: Suggest(uint256,string,address,uint256,uint256)
+          handler: handleVineSuggest
+        - event: Support(uint256,uint256,uint256)
+          handler: handleVineSupport
+        - event: Retort(uint256,uint256,uint256)
+          handler: handleVineRetort
+        - event: Complete(uint256)
+          handler: handleVineComplete
+      file: ./src/vineyard.ts
   - kind: ethereum/contract
     name: WineBottleV1
     network: {{ network }}
@@ -43,7 +51,7 @@ dataSources:
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Account
@@ -57,7 +65,17 @@ dataSources:
           handler: handleBottleTransfer
         - event: Rejuvenated(uint256,uint256)
           handler: handleRejuvenated
-      file: ./src/mapping.ts
+        - event: Suggest(uint256,string,address,uint256,uint256)
+          handler: handleBottleSuggest
+        - event: Support(uint256,uint256,uint256)
+          handler: handleBottleSupport
+        - event: Retort(uint256,uint256,uint256)
+          handler: handleBottleRetort
+        - event: Complete(uint256)
+          handler: handleBottleComplete
+        - event: BottleMinted(uint256,uint8[])
+          handler: handleBottleMinted
+      file: ./src/bottle.ts
   - kind: ethereum/contract
     name: Cellar
     network: {{ network }}
@@ -67,7 +85,7 @@ dataSources:
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Account
@@ -83,7 +101,7 @@ dataSources:
           handler: handleWithdrawn
         - event: Spoiled(uint256)
           handler: handleSpoiled
-      file: ./src/mapping.ts
+      file: ./src/cellar.ts
   - kind: ethereum/contract
     name: Vinegar
     network: {{ network }}
@@ -93,7 +111,7 @@ dataSources:
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - Account
@@ -105,7 +123,7 @@ dataSources:
       eventHandlers:
         - event:  Transfer(indexed address,indexed address,uint256)
           handler: handleVinegarTransfer
-      file: ./src/mapping.ts
+      file: ./src/vinegar.ts
   - kind: ethereum/contract
     name: AddressStorage
     network: {{ network }}
@@ -115,7 +133,7 @@ dataSources:
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
         - VineProtocol
@@ -127,4 +145,4 @@ dataSources:
       eventHandlers:
         - event:  AddressesSet()
           handler: handleAddressesSet
-      file: ./src/mapping.ts
+      file: ./src/vineyard.ts

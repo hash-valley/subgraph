@@ -16,7 +16,7 @@ type Bottle @entity {
   owner: Account!
   stakedAt: Int
   withdrawnAt: Int
-  attributes: BigInt
+  attributes: [Int!]!
   from: Vineyard
   canEnterCellar: Boolean!
   inCellar: Boolean!
@@ -25,6 +25,7 @@ type Bottle @entity {
   rejuvenateCost: BigInt
   rejuvenatedFrom: Bottle
   rejuvenatedTo: Bottle
+  lastVotedWith: BigInt!
 }
 
 type Vineyard @entity {
@@ -36,8 +37,8 @@ type Vineyard @entity {
   soil: Int!
   xp: BigInt!
   bottles: [Bottle!] @derivedFrom(field: "from")
-  seasonsPlanted: [Int!]
-  seasonsHarvested: [Int!]
+  seasonsPlanted: [Int!]!
+  seasonsHarvested: [Int!]!
 }
 
 type Account @entity {
@@ -45,4 +46,21 @@ type Account @entity {
   bottles: [Bottle!] @derivedFrom(field: "owner")
   vineyards: [Vineyard!] @derivedFrom(field: "owner")
   vinegarBalance: BigInt!
+}
+
+enum UriType {
+  BOTTLE
+  VINEYARD
+}
+
+type NewUri @entity {
+  id: ID!
+  type: UriType!
+  startTimestamp: BigInt!
+  votesFor: BigInt!
+  votesAgainst: BigInt!
+  artist: Bytes!
+  newUri: String!
+  completed: Boolean!
+  votes: [BigInt!]!
 }
