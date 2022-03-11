@@ -8,6 +8,7 @@ type VineProtocol @entity {
   vinegar: Bytes!
   vineyard: Bytes!
   bottle: Bytes!
+  giveaway: Bytes!
 }
 
 type Bottle @entity {
@@ -46,6 +47,9 @@ type Account @entity {
   bottles: [Bottle!] @derivedFrom(field: "owner")
   vineyards: [Vineyard!] @derivedFrom(field: "owner")
   vinegarBalance: BigInt!
+
+  giveawayBalance: BigInt!
+  giveawayAllowance: BigInt!
 }
 
 enum UriType {

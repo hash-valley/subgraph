@@ -8,7 +8,9 @@ export function getOrCreateAccount(address: Bytes): Account {
   if (account == null) {
     account = new Account(address.toHex());
     account.vinegarBalance = BigInt.fromString("0");
+    account.giveawayBalance = BigInt.fromString("0");
+    account.giveawayAllowance = BigInt.fromString("0");
+    account.save();
   }
-  account.save();
   return account as Account;
 }

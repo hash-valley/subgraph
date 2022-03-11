@@ -137,6 +137,7 @@ export function handleAddressesSet(event: AddressesSet): void {
   let asContract = ASContract.bind(event.address);
   vineProtocol.cellar = asContract.cellar();
   vineProtocol.vinegar = asContract.vinegar();
+  vineProtocol.giveaway = asContract.giveawayToken();
   let vineAddress = asContract.vineyard();
   vineProtocol.vineyard = vineAddress;
   vineProtocol.bottle = asContract.bottle();

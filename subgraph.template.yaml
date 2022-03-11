@@ -146,3 +146,27 @@ dataSources:
         - event:  AddressesSet()
           handler: handleAddressesSet
       file: ./src/vineyard.ts
+  - kind: ethereum/contract
+    name: GiveawayToken
+    network: {{ network }}
+    source:
+      address: '{{ giveaway_address }}'
+      abi: GiveawayToken
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - Vineyard
+        - Bottle
+      abis:
+        - name: GiveawayToken
+          file: ../contracts/abis/Vinegar.json
+      eventHandlers:
+        - event:  Transfer(indexed address,indexed address,uint256)
+          handler: handleGiveawayTransfer
+        - event:  Approval(indexed address,indexed address,uint256)
+          handler: handleGiveawayApproval
+      file: ./src/vinegar.ts
