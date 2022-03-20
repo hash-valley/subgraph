@@ -169,4 +169,4 @@ dataSources:
           handler: handleGiveawayTransfer
         - event:  Approval(indexed address,indexed address,uint256)
           handler: handleGiveawayApproval
-      file: ./src/vinegar.ts
+      file: ./src/giveaway.ts
