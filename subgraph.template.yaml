@@ -5,11 +5,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: VineyardV1
+    name: Vineyard
     network: {{ network }}
     source:
       address: '{{ vine_address }}'
-      abi: VineyardV1
+      abi: Vineyard
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
@@ -20,8 +20,10 @@ dataSources:
         - Vineyard
         - Bottle
       abis:
-        - name: VineyardV1
-          file: ../contracts/abis/VineyardV1.json
+        - name: Vineyard
+          file: ../contracts/abis/Vineyard.json
+        - name: VotableUri
+          file: ../contracts/abis/VotableUri.json
       eventHandlers:
         - event: Start(uint48)
           handler: handleStart
@@ -29,6 +31,8 @@ dataSources:
           handler: handleVineyardTransfer
         - event: VineyardMinted(uint256,uint256,uint256,uint256,uint256)
           handler: handleVineyardMinted
+        - event: SprinklerPurchased(uint256)
+          handler: handleSprinklerPurchased
         - event: Planted(uint256,uint256)
           handler: handlePlanted
         - event: Harvested(uint256,uint256,uint256)
@@ -39,15 +43,15 @@ dataSources:
           handler: handleVineSupport
         - event: Retort(uint256,uint256,uint256)
           handler: handleVineRetort
-        - event: Complete(uint256)
+        - event: Complete(uint256,string,address)
           handler: handleVineComplete
       file: ./src/vineyard.ts
   - kind: ethereum/contract
-    name: WineBottleV1
+    name: WineBottle
     network: {{ network }}
     source:
       address: '{{ bottle_address }}'
-      abi: WineBottleV1
+      abi: WineBottle
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
@@ -58,8 +62,10 @@ dataSources:
         - Vineyard
         - Bottle
       abis:
-        - name: WineBottleV1
-          file: ../contracts/abis/WineBottleV1.json
+        - name: WineBottle
+          file: ../contracts/abis/WineBottle.json
+        - name: VotableUri
+          file: ../contracts/abis/VotableUri.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleBottleTransfer
@@ -71,7 +77,7 @@ dataSources:
           handler: handleBottleSupport
         - event: Retort(uint256,uint256,uint256)
           handler: handleBottleRetort
-        - event: Complete(uint256)
+        - event: Complete(uint256,string,address)
           handler: handleBottleComplete
         - event: BottleMinted(uint256,uint8[])
           handler: handleBottleMinted
@@ -81,7 +87,7 @@ dataSources:
     network: {{ network }}
     source:
       address: '{{ cellar_address }}'
-      abi: CellarV1
+      abi: Cellar
       startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
@@ -92,8 +98,8 @@ dataSources:
         - Vineyard
         - Bottle
       abis:
-        - name: CellarV1
-          file: ../contracts/abis/CellarV1.json
+        - name: Cellar
+          file: ../contracts/abis/Cellar.json
       eventHandlers:
         - event:  Staked(uint256)
           handler: handleStaked
@@ -140,8 +146,8 @@ dataSources:
       abis:
         - name: AddressStorage
           file: ../contracts/abis/AddressStorage.json
-        - name: VineyardV1
-          file: ../contracts/abis/VineyardV1.json
+        - name: Vineyard
+          file: ../contracts/abis/Vineyard.json
       eventHandlers:
         - event:  AddressesSet()
           handler: handleAddressesSet

@@ -3,13 +3,14 @@ import {
   VineyardMinted,
   Planted,
   Harvested,
-  VineyardV1 as VineContract,
+  Vineyard as VineContract,
   Start,
   Suggest,
   Support,
   Retort,
   Complete,
-} from "../generated/VineyardV1/VineyardV1";
+  SprinklerPurchased,
+} from "../generated/Vineyard/Vineyard";
 import {
   AddressesSet,
   AddressStorage as ASContract,
@@ -54,6 +55,13 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   let vineProtocol = VineProtocol.load("0") as VineProtocol;
   vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1;
   vineProtocol.save();
+}
+
+export function handleSprinklerPurchased(event: SprinklerPurchased): void {
+  let vineyard = Vineyard.load(event.params.tokenId.toHex()) as Vineyard;
+  let threeYears = BigInt.fromI32(94348800);
+  vineyard.sprinklerExpires = event.block.timestamp.plus(threeYears);
+  vineyard.save();
 }
 
 export function handlePlanted(event: Planted): void {

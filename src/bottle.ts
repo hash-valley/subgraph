@@ -6,7 +6,7 @@ import {
   Support,
   Retort,
   Complete,
-} from "../generated/WineBottleV1/WineBottleV1";
+} from "../generated/WineBottle/WineBottle";
 import { Bottle, VineProtocol, NewUri } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
@@ -38,7 +38,7 @@ export function handleBottleTransfer(event: BottleTransfer): void {
 export function handleBottleMinted(event: BottleMinted): void {
   let bottle = Bottle.load(event.params.tokenId.toHex()) as Bottle;
   bottle.attributes = event.params.attributes;
-  bottle.save()
+  bottle.save();
 }
 
 export function handleRejuvenated(event: Rejuvenated): void {

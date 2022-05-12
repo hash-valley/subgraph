@@ -2,8 +2,8 @@ import {
   Staked,
   Withdrawn,
   Spoiled,
-  CellarV1 as CellarContract,
-} from "../generated/Cellar/CellarV1";
+  Cellar as CellarContract,
+} from "../generated/Cellar/Cellar";
 import { Bottle } from "../generated/schema";
 
 export function handleStaked(event: Staked): void {

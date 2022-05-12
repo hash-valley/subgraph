@@ -37,6 +37,7 @@ type Vineyard @entity {
   elevation: Int!
   soil: Int!
   xp: BigInt!
+  sprinklerExpires: BigInt
   bottles: [Bottle!] @derivedFrom(field: "from")
   seasonsPlanted: [Int!]!
   seasonsHarvested: [Int!]!
