@@ -10,12 +10,14 @@ export function handleStaked(event: Staked): void {
   let bottle = Bottle.load(event.params.tokenId.toHex()) as Bottle;
   bottle.inCellar = true;
   bottle.canEnterCellar = false;
+  bottle.stakedAt = event.block.timestamp;
   bottle.save();
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
   let bottle = Bottle.load(event.params.tokenId.toHex()) as Bottle;
   bottle.inCellar = false;
+  bottle.withdrawnAt = event.block.timestamp;
   bottle.save();
 }
 

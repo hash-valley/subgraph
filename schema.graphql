@@ -15,8 +15,8 @@ type Bottle @entity {
   id: ID!
   tokenId: BigInt!
   owner: Account!
-  stakedAt: Int
-  withdrawnAt: Int
+  stakedAt: BigInt
+  withdrawnAt: BigInt
   attributes: [Int!]!
   from: Vineyard
   canEnterCellar: Boolean!

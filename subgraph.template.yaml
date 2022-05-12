@@ -19,6 +19,8 @@ dataSources:
         - Account
         - Vineyard
         - Bottle
+        - VineProtocol
+        - NewUri
       abis:
         - name: Vineyard
           file: ../contracts/abis/Vineyard.json
@@ -61,6 +63,8 @@ dataSources:
         - Account
         - Vineyard
         - Bottle
+        - VineProtocol
+        - NewUri
       abis:
         - name: WineBottle
           file: ../contracts/abis/WineBottle.json
