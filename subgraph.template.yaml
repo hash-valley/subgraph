@@ -23,7 +23,7 @@ dataSources:
         - NewUri
       abis:
         - name: Vineyard
-          file: ../contracts/abis/Vineyard.json
+          file: ../contracts/abis/VineyardSubgraph.json
         - name: VotableUri
           file: ../contracts/abis/VotableUri.json
       eventHandlers:
@@ -151,7 +151,7 @@ dataSources:
         - name: AddressStorage
           file: ../contracts/abis/AddressStorage.json
         - name: Vineyard
-          file: ../contracts/abis/Vineyard.json
+          file: ../contracts/abis/VineyardSubgraph.json
       eventHandlers:
         - event:  AddressesSet()
           handler: handleAddressesSet
