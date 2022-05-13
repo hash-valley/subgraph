@@ -1,6 +1,7 @@
 type VineProtocol @entity {
   id: ID!
   gameStarted: Boolean!
+  startTime: BigInt
   maxVineyards: Int!
   mintedVineyards: Int!
 

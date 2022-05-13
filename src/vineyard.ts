@@ -90,6 +90,7 @@ export function handleHarvested(event: Harvested): void {
 export function handleStart(event: Start): void {
   let protocol = VineProtocol.load("0") as VineProtocol;
   protocol.gameStarted = true;
+  protocol.startTime = event.block.timestamp;
   protocol.save();
 }
 
