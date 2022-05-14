@@ -140,8 +140,16 @@ export function handleVineComplete(event: Complete): void {
 }
 
 export function handleAddressesSet(event: AddressesSet): void {
-  let vineProtocol = new VineProtocol("0");
-  vineProtocol.gameStarted = false;
+  let vineProtocol = VineProtocol.load("0");
+  if (vineProtocol == null) {
+    vineProtocol = new VineProtocol("0");
+    vineProtocol.gameStarted = false;
+    vineProtocol.mintedVineyards = 0;
+
+    let account = new Account(ZERO_ADDRESS);
+    account.vinegarBalance = BigInt.fromString("0");
+    account.save();
+  }
 
   let asContract = ASContract.bind(event.address);
   vineProtocol.cellar = asContract.cellar();
@@ -150,14 +158,10 @@ export function handleAddressesSet(event: AddressesSet): void {
   let vineAddress = asContract.vineyard();
   vineProtocol.vineyard = vineAddress;
   vineProtocol.bottle = asContract.bottle();
+  vineProtocol.royalty = asContract.royaltyManager();
 
   let vineContract = VineContract.bind(vineAddress);
   vineProtocol.maxVineyards = vineContract.maxVineyards().toI32();
-  vineProtocol.mintedVineyards = 0;
 
   vineProtocol.save();
-
-  let account = new Account(ZERO_ADDRESS);
-  account.vinegarBalance = BigInt.fromString("0");
-  account.save();
 }

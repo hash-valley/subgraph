@@ -1,10 +1,10 @@
 {
-  "vine_address": "0x725Ebff6DD72F7eA9d82bbccEF552Df0fC682122",
-  "cellar_address": "0x0eBA7a8f33002A99c8670148Ea906dD18c019498",
-  "bottle_address": "0x183d7F631F087e4C4CFdD53330Ae63380570095f",
-  "vinegar_address": "0xAA3F190DF9E9A050ae88B2Df0aD8B70d8aF000D7",
-  "giveaway_address": "0x17987910d9a58343934A2504A2c89Fb1f3E75a24",
-  "address_storage_address": "0xA538033C412c172fAfCD62BAA0a765834227fb64",
+  "vine_address": "0xE3626E098CED614F3c087b7E4537D192B020AfF7",
+  "cellar_address": "0xe6ea6E0F9FCf18bA2f605C81D470A0A986877dde",
+  "bottle_address": "0xF275793dEc22578601824c727Fac3446424d4b66",
+  "vinegar_address": "0x0A92934af18b1FB1b7AE3930A54A21e7A86DF8de",
+  "giveaway_address": "0x874B1C7E65DCaF2a945C69Ed4026AF876E7dC6D3",
+  "address_storage_address": "0xA67D8ac63514Dabe929bbbCCE45bc0322Ad9E08e",
   "network": "optimism-kovan",
-  "startBlock": 2814320
+  "startBlock": 2928201
 } 

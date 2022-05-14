@@ -10,6 +10,7 @@ type VineProtocol @entity {
   vineyard: Bytes!
   bottle: Bytes!
   giveaway: Bytes!
+  royalty: Bytes!
 }
 
 type Bottle @entity {
