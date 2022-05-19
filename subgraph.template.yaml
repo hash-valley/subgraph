@@ -180,3 +180,23 @@ dataSources:
         - event:  Approval(indexed address,indexed address,uint256)
           handler: handleGiveawayApproval
       file: ./src/giveaway.ts
+  - kind: ethereum/contract
+    name: MerkleDiscount
+    network: {{ network }}
+    source:
+      address: '{{ merkle_address }}'
+      abi: MerkleDiscount
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+      abis:
+        - name: MerkleDiscount
+          file: ../contracts/abis/MerkleDiscount.json
+      eventHandlers:
+        - event:  Claimed(uint256,address)
+          handler: handleClaimed
+      file: ./src/merkle.ts

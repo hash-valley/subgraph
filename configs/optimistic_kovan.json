@@ -5,6 +5,7 @@
   "vinegar_address": "0x0A92934af18b1FB1b7AE3930A54A21e7A86DF8de",
   "giveaway_address": "0x874B1C7E65DCaF2a945C69Ed4026AF876E7dC6D3",
   "address_storage_address": "0xA67D8ac63514Dabe929bbbCCE45bc0322Ad9E08e",
+  "merkle_address": "",
   "network": "optimism-kovan",
   "startBlock": 2928201
 } 

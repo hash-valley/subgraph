@@ -5,6 +5,7 @@
   "vinegar_address": "0xAA3F190DF9E9A050ae88B2Df0aD8B70d8aF000D7",
   "giveaway_address": "0x17987910d9a58343934A2504A2c89Fb1f3E75a24",
   "address_storage_address": "0xA538033C412c172fAfCD62BAA0a765834227fb64",
+  "merkle_address": "",
   "network": "optimism",
   "startBlock": 2814320
 } 
