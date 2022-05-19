@@ -54,7 +54,7 @@ type Account @entity {
   giveawayBalance: BigInt!
   giveawayAllowance: BigInt!
 
-  claimedMilady: Boolean
+  claimedDiscount: Boolean
 }
 
 enum UriType {
