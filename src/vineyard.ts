@@ -5,23 +5,13 @@ import {
   Harvested,
   Vineyard as VineContract,
   Start,
-  Suggest,
-  Support,
-  Retort,
-  Complete,
   SprinklerPurchased,
 } from "../generated/Vineyard/Vineyard";
 import {
   AddressesSet,
   AddressStorage as ASContract,
 } from "../generated/AddressStorage/AddressStorage";
-import {
-  Vineyard,
-  Bottle,
-  Account,
-  VineProtocol,
-  NewUri,
-} from "../generated/schema";
+import { Vineyard, Bottle, Account, VineProtocol } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
 
@@ -94,57 +84,14 @@ export function handleStart(event: Start): void {
   protocol.save();
 }
 
-export function handleVineSuggest(event: Suggest): void {
-  let newUri = new NewUri(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.artist = event.params.artist;
-  newUri.votesFor = event.params.forVotes;
-  newUri.votesAgainst = BigInt.fromI32(0);
-  newUri.newUri = event.params.newUri;
-  newUri.startTimestamp = event.params.startTimestamp;
-  newUri.type = "VINEYARD";
-  newUri.completed = false;
-  newUri.votes = [event.params.bottle];
-  newUri.save();
-
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
-  bottle.lastVotedWith = event.block.timestamp;
-  bottle.save();
-}
-
-export function handleVineSupport(event: Support): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.votesFor = event.params.forVotes;
-  newUri.votes = newUri.votes.concat([event.params.bottle]);
-  newUri.save();
-
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
-  bottle.lastVotedWith = event.block.timestamp;
-  bottle.save();
-}
-
-export function handleVineRetort(event: Retort): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.votesAgainst = event.params.againstVotes;
-  newUri.votes = newUri.votes.concat([event.params.bottle]);
-  newUri.save();
-
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
-  bottle.lastVotedWith = event.block.timestamp;
-  bottle.save();
-}
-
-export function handleVineComplete(event: Complete): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.completed = true;
-  newUri.save();
-}
-
 export function handleAddressesSet(event: AddressesSet): void {
   let vineProtocol = VineProtocol.load("0");
   if (vineProtocol == null) {
     vineProtocol = new VineProtocol("0");
     vineProtocol.gameStarted = false;
     vineProtocol.mintedVineyards = 0;
+    vineProtocol.bottleImgVersions = 1;
+    vineProtocol.vineImgVersions = 1;
 
     let account = new Account(ZERO_ADDRESS);
     account.vinegarBalance = BigInt.fromString("0");
@@ -159,6 +106,8 @@ export function handleAddressesSet(event: AddressesSet): void {
   vineProtocol.vineyard = vineAddress;
   vineProtocol.bottle = asContract.bottle();
   vineProtocol.royalty = asContract.royaltyManager();
+  vineProtocol.wineUri = asContract.wineUri();
+  vineProtocol.vineUri = asContract.vineUri();
 
   let vineContract = VineContract.bind(vineAddress);
   vineProtocol.maxVineyards = vineContract.maxVineyards().toI32();

@@ -11,6 +11,11 @@ type VineProtocol @entity {
   bottle: Bytes!
   giveaway: Bytes!
   royalty: Bytes!
+  wineUri: Bytes!
+  vineUri: Bytes!
+
+  bottleImgVersions: Int!
+  vineImgVersions: Int!
 }
 
 type Bottle @entity {
@@ -72,4 +77,5 @@ type NewUri @entity {
   newUri: String!
   completed: Boolean!
   votes: [BigInt!]!
+  version: Int
 }

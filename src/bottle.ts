@@ -2,12 +2,8 @@ import {
   Transfer as BottleTransfer,
   BottleMinted,
   Rejuvenated,
-  Suggest,
-  Support,
-  Retort,
-  Complete,
 } from "../generated/WineBottle/WineBottle";
-import { Bottle, VineProtocol, NewUri } from "../generated/schema";
+import { Bottle, VineProtocol } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
 
@@ -51,49 +47,4 @@ export function handleRejuvenated(event: Rejuvenated): void {
   let newBottle = Bottle.load(event.params.newTokenId.toHex()) as Bottle;
   newBottle.rejuvenatedFrom = oldBottle.id;
   newBottle.save();
-}
-
-export function handleBottleSuggest(event: Suggest): void {
-  let newUri = new NewUri(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.artist = event.params.artist;
-  newUri.votesFor = event.params.forVotes;
-  newUri.votesAgainst = BigInt.fromI32(0);
-  newUri.newUri = event.params.newUri;
-  newUri.startTimestamp = event.params.startTimestamp;
-  newUri.type = "BOTTLE";
-  newUri.completed = false;
-  newUri.votes = [event.params.bottle];
-  newUri.save();
-
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
-  bottle.lastVotedWith = event.block.timestamp;
-  bottle.save();
-}
-
-export function handleBottleSupport(event: Support): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.votesFor = event.params.forVotes;
-  newUri.votes = newUri.votes.concat([event.params.bottle]);
-  newUri.save();
-
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
-  bottle.lastVotedWith = event.block.timestamp;
-  bottle.save();
-}
-
-export function handleBottleRetort(event: Retort): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.votesAgainst = event.params.againstVotes;
-  newUri.votes = newUri.votes.concat([event.params.bottle]);
-  newUri.save();
-
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
-  bottle.lastVotedWith = event.block.timestamp;
-  bottle.save();
-}
-
-export function handleBottleComplete(event: Complete): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
-  newUri.completed = true;
-  newUri.save();
 }

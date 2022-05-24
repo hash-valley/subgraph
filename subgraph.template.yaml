@@ -39,14 +39,6 @@ dataSources:
           handler: handlePlanted
         - event: Harvested(uint256,uint256,uint256)
           handler: handleHarvested
-        - event: Suggest(uint256,string,address,uint256,uint256)
-          handler: handleVineSuggest
-        - event: Support(uint256,uint256,uint256)
-          handler: handleVineSupport
-        - event: Retort(uint256,uint256,uint256)
-          handler: handleVineRetort
-        - event: Complete(uint256,string,address)
-          handler: handleVineComplete
       file: ./src/vineyard.ts
   - kind: ethereum/contract
     name: WineBottle
@@ -75,14 +67,6 @@ dataSources:
           handler: handleBottleTransfer
         - event: Rejuvenated(uint256,uint256)
           handler: handleRejuvenated
-        - event: Suggest(uint256,string,address,uint256,uint256)
-          handler: handleBottleSuggest
-        - event: Support(uint256,uint256,uint256)
-          handler: handleBottleSupport
-        - event: Retort(uint256,uint256,uint256)
-          handler: handleBottleRetort
-        - event: Complete(uint256,string,address)
-          handler: handleBottleComplete
         - event: BottleMinted(uint256,uint8[])
           handler: handleBottleMinted
       file: ./src/bottle.ts
@@ -200,3 +184,60 @@ dataSources:
         - event:  Claimed(uint256,address)
           handler: handleClaimed
       file: ./src/merkle.ts
+
+  - kind: ethereum/contract
+    name: WineUri
+    network: {{ network }}
+    source:
+      address: '{{ wine_uri_address }}'
+      abi: VotableUri
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+      abis:
+        - name: VotableUri
+          file: ../contracts/abis/VotableUri.json
+      eventHandlers:
+        - event: Suggest(uint256,string,address,uint256,uint256)
+          handler: handleSuggest
+        - event: Support(uint256,uint256,uint256)
+          handler: handleSupport
+        - event: Retort(uint256,uint256,uint256)
+          handler: handleRetort
+        - event: Complete(uint256,string,address)
+          handler: handleComplete
+        - event: Setup(string,address)
+          handler: handleSetup
+      file: ./src/wineUri.ts
+  - kind: ethereum/contract
+    name: VineUri
+    network: {{ network }}
+    source:
+      address: '{{ vine_uri_address }}'
+      abi: VotableUri
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+      abis:
+        - name: VotableUri
+          file: ../contracts/abis/VotableUri.json
+      eventHandlers:
+        - event: Suggest(uint256,string,address,uint256,uint256)
+          handler: handleSuggest
+        - event: Support(uint256,uint256,uint256)
+          handler: handleSupport
+        - event: Retort(uint256,uint256,uint256)
+          handler: handleRetort
+        - event: Complete(uint256,string,address)
+          handler: handleComplete
+        - event: Setup(string,address)
+          handler: handleSetup
+      file: ./src/vineUri.ts

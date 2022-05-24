@@ -1,4 +1,6 @@
 {
+  "network": "optimism",
+  "startBlock": 2814320,
   "vine_address": "0x725Ebff6DD72F7eA9d82bbccEF552Df0fC682122",
   "cellar_address": "0x0eBA7a8f33002A99c8670148Ea906dD18c019498",
   "bottle_address": "0x183d7F631F087e4C4CFdD53330Ae63380570095f",
@@ -6,6 +8,6 @@
   "giveaway_address": "0x17987910d9a58343934A2504A2c89Fb1f3E75a24",
   "address_storage_address": "0xA538033C412c172fAfCD62BAA0a765834227fb64",
   "merkle_address": "",
-  "network": "optimism",
-  "startBlock": 2814320
+  "wine_uri_address": "",
+  "vine_uri_address": ""
 } 
