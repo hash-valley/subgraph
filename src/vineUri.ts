@@ -9,7 +9,9 @@ import {
 } from "../generated/VineUri/VotableUri";
 
 export function handleSuggest(event: Suggest): void {
-  let newUri = new NewUri(event.params.startTimestamp.toHex()) as NewUri;
+  let newUri = new NewUri(
+    event.params.startTimestamp.toHex() + "-" + "VINEYARD"
+  ) as NewUri;
   newUri.artist = event.params.newArtist;
   newUri.votesFor = event.params.forVotes;
   newUri.votesAgainst = BigInt.fromI32(0);
@@ -26,7 +28,9 @@ export function handleSuggest(event: Suggest): void {
 }
 
 export function handleSupport(event: Support): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
+  let newUri = NewUri.load(
+    event.params.startTimestamp.toHex() + "-" + "VINEYARD"
+  ) as NewUri;
   newUri.votesFor = event.params.forVotes;
   newUri.votes = newUri.votes.concat([event.params.bottle]);
   newUri.save();
@@ -37,7 +41,9 @@ export function handleSupport(event: Support): void {
 }
 
 export function handleRetort(event: Retort): void {
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
+  let newUri = NewUri.load(
+    event.params.startTimestamp.toHex() + "-" + "VINEYARD"
+  ) as NewUri;
   newUri.votesAgainst = event.params.againstVotes;
   newUri.votes = newUri.votes.concat([event.params.bottle]);
   newUri.save();
@@ -50,9 +56,11 @@ export function handleRetort(event: Retort): void {
 export function handleComplete(event: Complete): void {
   let vineProtocol = VineProtocol.load("0") as VineProtocol;
 
-  let newUri = NewUri.load(event.params.startTimestamp.toHex()) as NewUri;
+  let newUri = NewUri.load(
+    event.params.startTimestamp.toHex() + "-" + "VINEYARD"
+  ) as NewUri;
   newUri.completed = true;
-  newUri.version = vineProtocol.vineImgVersions
+  newUri.version = vineProtocol.vineImgVersions;
   newUri.save();
 
   vineProtocol.vineImgVersions += 1;
@@ -60,8 +68,10 @@ export function handleComplete(event: Complete): void {
 }
 
 export function handleSetup(event: Setup): void {
-  let newUri = new NewUri(event.block.timestamp.toHex()) as NewUri;
-  newUri.version = 0
+  let newUri = new NewUri(
+    event.block.timestamp.toHex() + "-" + "VINEYARD"
+  ) as NewUri;
+  newUri.version = 0;
   newUri.artist = event.params.newArtist;
   newUri.votesFor = BigInt.fromI32(0);
   newUri.votesAgainst = BigInt.fromI32(0);
