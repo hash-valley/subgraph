@@ -7,7 +7,7 @@ import {
 import { Bottle } from "../generated/schema";
 
 export function handleStaked(event: Staked): void {
-  let bottle = Bottle.load(event.params.tokenId.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.tokenId.toString()) as Bottle;
   bottle.inCellar = true;
   bottle.canEnterCellar = false;
   bottle.stakedAt = event.block.timestamp;
@@ -15,14 +15,14 @@ export function handleStaked(event: Staked): void {
 }
 
 export function handleWithdrawn(event: Withdrawn): void {
-  let bottle = Bottle.load(event.params.tokenId.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.tokenId.toString()) as Bottle;
   bottle.inCellar = false;
   bottle.withdrawnAt = event.block.timestamp;
   bottle.save();
 }
 
 export function handleSpoiled(event: Spoiled): void {
-  let bottle = Bottle.load(event.params.tokenId.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.tokenId.toString()) as Bottle;
   bottle.spoiled = true;
   bottle.inCellar = false;
 

@@ -16,9 +16,9 @@ import { BigInt } from "@graphprotocol/graph-ts";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
 
 export function handleVineyardTransfer(event: VineyardTransfer): void {
-  let vineyard = Vineyard.load(event.params.tokenId.toHex());
+  let vineyard = Vineyard.load(event.params.tokenId.toString());
   if (vineyard == null || event.params.from.toHex() == ZERO_ADDRESS) {
-    vineyard = new Vineyard(event.params.tokenId.toHex());
+    vineyard = new Vineyard(event.params.tokenId.toString());
     vineyard.tokenId = event.params.tokenId;
     vineyard.location = 0;
     vineyard.elevation = 0;
@@ -33,7 +33,7 @@ export function handleVineyardTransfer(event: VineyardTransfer): void {
 }
 
 export function handleVineyardMinted(event: VineyardMinted): void {
-  let vineyard = Vineyard.load(event.params.tokenId.toHex()) as Vineyard;
+  let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
   vineyard.location = event.params.location.toI32();
   vineyard.elevation = event.params.elevation.toI32();
   if (event.params.elevationNegative.toI32() == 1) {
@@ -48,14 +48,14 @@ export function handleVineyardMinted(event: VineyardMinted): void {
 }
 
 export function handleSprinklerPurchased(event: SprinklerPurchased): void {
-  let vineyard = Vineyard.load(event.params.tokenId.toHex()) as Vineyard;
+  let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
   let threeYears = BigInt.fromI32(94348800);
   vineyard.sprinklerExpires = event.block.timestamp.plus(threeYears);
   vineyard.save();
 }
 
 export function handlePlanted(event: Planted): void {
-  let vineyard = Vineyard.load(event.params.tokenId.toHex()) as Vineyard;
+  let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
   vineyard.seasonsPlanted = vineyard.seasonsPlanted.concat([
     event.params.season.toI32(),
   ]);
@@ -63,7 +63,7 @@ export function handlePlanted(event: Planted): void {
 }
 
 export function handleHarvested(event: Harvested): void {
-  let vineyard = Vineyard.load(event.params.tokenId.toHex()) as Vineyard;
+  let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
   vineyard.seasonsHarvested = vineyard.seasonsHarvested.concat([
     event.params.season.toI32(),
   ]);
@@ -72,7 +72,7 @@ export function handleHarvested(event: Harvested): void {
   vineyard.xp = contract.xp(event.params.tokenId);
   vineyard.save();
 
-  let bottle = Bottle.load(event.params.bottleId.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.bottleId.toString()) as Bottle;
   bottle.from = vineyard.id;
   bottle.save();
 }
