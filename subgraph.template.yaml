@@ -88,6 +88,8 @@ dataSources:
       abis:
         - name: Cellar
           file: ../contracts/abis/Cellar.json
+        - name: WineBottle
+          file: ../contracts/abis/WineBottle.json
       eventHandlers:
         - event:  Staked(uint256)
           handler: handleStaked
