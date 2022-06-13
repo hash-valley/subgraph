@@ -22,7 +22,7 @@ export function handleSuggest(event: Suggest): void {
   newUri.votes = [event.params.bottle];
   newUri.save();
 
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.bottle.toString()) as Bottle;
   bottle.lastVotedWith = event.block.timestamp;
   bottle.save();
 }
@@ -35,7 +35,7 @@ export function handleSupport(event: Support): void {
   newUri.votes = newUri.votes.concat([event.params.bottle]);
   newUri.save();
 
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.bottle.toString()) as Bottle;
   bottle.lastVotedWith = event.block.timestamp;
   bottle.save();
 }
@@ -48,7 +48,7 @@ export function handleRetort(event: Retort): void {
   newUri.votes = newUri.votes.concat([event.params.bottle]);
   newUri.save();
 
-  let bottle = Bottle.load(event.params.bottle.toHex()) as Bottle;
+  let bottle = Bottle.load(event.params.bottle.toString()) as Bottle;
   bottle.lastVotedWith = event.block.timestamp;
   bottle.save();
 }
