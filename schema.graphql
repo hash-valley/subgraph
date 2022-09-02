@@ -4,6 +4,7 @@ type VineProtocol @entity {
   startTime: BigInt
   maxVineyards: Int!
   mintedVineyards: Int!
+  currentPrice: BigInt!
 
   cellar: Bytes!
   vinegar: Bytes!

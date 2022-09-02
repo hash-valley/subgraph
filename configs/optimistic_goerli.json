@@ -1,5 +1,5 @@
 {
-  "network": "optimism-kovan",
+  "network": "optimism-goerli",
   "startBlock": 3367369,
   "vine_address": "0xe19D41B665050Ca9E87935ECd0a9921193932E36",
   "cellar_address": "0x970a24f466668E6B49A470A457024f7BDc77B4C3",
@@ -10,5 +10,6 @@
   "royalty_address": "0x9501e1463d2f185f7709Da0DB91Ab874b988D365",
   "merkle_address": "0x22692366d8D11716b4F91eF7989175Da416ff85A",
   "wine_uri_address": "0xb01887C3BBa4c274079b7d9B92a8c7F5b8F3E155",
-  "vine_uri_address": "0x5b4BfDEDf7c1e70B6eaE2665ce630FEC54950F16"
+  "vine_uri_address": "0x5b4BfDEDf7c1e70B6eaE2665ce630FEC54950F16",
+  "sale_params_address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
 } 

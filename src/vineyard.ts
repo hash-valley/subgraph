@@ -12,8 +12,9 @@ import {
   AddressStorage as ASContract,
 } from "../generated/AddressStorage/AddressStorage";
 import { Vineyard, Bottle, Account, VineProtocol } from "../generated/schema";
-import { BigInt } from "@graphprotocol/graph-ts";
+import { Address, BigInt } from "@graphprotocol/graph-ts";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
+import { SaleParams as SPContract } from "../generated/Vineyard/SaleParams";
 
 export function handleVineyardTransfer(event: VineyardTransfer): void {
   let vineyard = Vineyard.load(event.params.tokenId.toString());
@@ -44,6 +45,14 @@ export function handleVineyardMinted(event: VineyardMinted): void {
 
   let vineProtocol = VineProtocol.load("0") as VineProtocol;
   vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1;
+
+  let contract = SPContract.bind(
+    // SET TO CURRENT NETWORK CONFIG
+    Address.fromString("0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e")
+  );
+  vineProtocol.currentPrice = contract.getSalesPrice(
+    BigInt.fromI32(vineProtocol.mintedVineyards)
+  );
   vineProtocol.save();
 }
 
@@ -111,6 +120,7 @@ export function handleAddressesSet(event: AddressesSet): void {
 
   let vineContract = VineContract.bind(vineAddress);
   vineProtocol.maxVineyards = vineContract.maxVineyards().toI32();
+  vineProtocol.currentPrice = BigInt.fromString("0");
 
   vineProtocol.save();
 }

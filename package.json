@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "prepare:hh": "mustache configs/hardhat.json subgraph.template.yaml > subgraph.yaml && graph codegen",
-    "prepare:ok": "mustache configs/optimistic_kovan.json subgraph.template.yaml > subgraph.yaml && graph codegen",
+    "prepare:og": "mustache configs/optimistic_goerli.json subgraph.template.yaml > subgraph.yaml && graph codegen",
     "prepare:op": "mustache configs/optimism.json subgraph.template.yaml > subgraph.yaml && graph codegen",
     "create": "graph create c0rv0s/hashvalley --node https://api.thegraph.com/deploy/",
     "create-local": "graph create c0rv0s/hashvalley --node http://127.0.0.1:8020",
@@ -11,7 +11,7 @@
     "build": "graph build",
     "deploy": "graph deploy c0rv0s/hashvalley --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "deploy-local": "graph deploy c0rv0s/hashvalley --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
-    "deploy-kovan": "graph deploy c0rv0s/hashvalley-kovan --product hosted-service --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-goerli": "graph deploy c0rv0s/hash-valley-goerli --product hosted-service --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "deploy-optimism": "graph deploy c0rv0s/hashvalley --product hosted-service --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
   },
   "devDependencies": {
