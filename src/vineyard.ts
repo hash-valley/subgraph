@@ -6,12 +6,19 @@ import {
   Vineyard as VineContract,
   Start,
   SprinklerPurchased,
+  GrapesHarvested,
 } from "../generated/Vineyard/Vineyard";
 import {
   AddressesSet,
   AddressStorage as ASContract,
 } from "../generated/AddressStorage/AddressStorage";
-import { Vineyard, Bottle, Account, VineProtocol } from "../generated/schema";
+import {
+  Vineyard,
+  Bottle,
+  Account,
+  VineProtocol,
+  GrapeStatus,
+} from "../generated/schema";
 import { Address, BigInt } from "@graphprotocol/graph-ts";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
 import { SaleParams as SPContract } from "../generated/Vineyard/SaleParams";
@@ -46,7 +53,7 @@ export function handleVineyardMinted(event: VineyardMinted): void {
 
   let contract = SPContract.bind(
     // SET TO CURRENT NETWORK CONFIG
-    Address.fromString("0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82")
+    Address.fromString("0x9A676e781A523b5d0C0e43731313A708CB607508")
   );
   vineProtocol.currentPrice = contract.getSalesPrice(
     BigInt.fromI32(vineProtocol.mintedVineyards)
@@ -126,4 +133,20 @@ export function handleAddressesSet(event: AddressesSet): void {
   vineProtocol.currentPrice = BigInt.fromString("0");
 
   vineProtocol.save();
+}
+
+export function handleGrapesHarvested(event: GrapesHarvested): void {
+  let grapeStatus = GrapeStatus.load(
+    event.params.tokenId.toString() + "-" + event.params.season.toString()
+  );
+  if (grapeStatus == null) {
+    grapeStatus = new GrapeStatus(
+      event.params.tokenId.toString() + "-" + event.params.season.toString()
+    );
+    grapeStatus.vineyard = event.params.tokenId.toString();
+    grapeStatus.season = event.params.season;
+  }
+  grapeStatus.harvested = event.params.harvested;
+  grapeStatus.remaining = event.params.remaining;
+  grapeStatus.save();
 }

@@ -53,6 +53,16 @@ type Vineyard @entity {
   witherDeadline: BigInt
 
   vitalized: Boolean
+
+  grapeStatus: [GrapeStatus!] @derivedFrom(field: "vineyard")
+}
+
+type GrapeStatus @entity {
+  id: ID!
+  vineyard: Vineyard!
+  season: BigInt!
+  harvested: BigInt!
+  remaining: BigInt!
 }
 
 type Account @entity {

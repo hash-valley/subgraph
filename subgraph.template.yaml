@@ -41,6 +41,8 @@ dataSources:
           handler: handlePlanted
         - event: Harvested(uint256,uint256,uint256)
           handler: handleHarvested
+        - event: GrapesHarvested(uint256,uint256,uint256,uint256)
+          handler: handleGrapesHarvested
       file: ./src/vineyard.ts
   - kind: ethereum/contract
     name: WineBottle
@@ -189,12 +191,12 @@ dataSources:
       eventHandlers:
         - event:  Transfer(indexed address,indexed address,uint256)
           handler: handleGrapeTransfer
-      file: ./src/giveaway.ts
+      file: ./src/grape.ts
   - kind: ethereum/contract
     name: Alchemy
     network: {{ network }}
     source:
-      address: '{{ vinegar_address }}'
+      address: '{{ alchemy_address }}'
       abi: Alchemy
       startBlock: {{ startBlock }}
     mapping:
