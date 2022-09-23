@@ -37,10 +37,8 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
   vineyard.location = event.params.location.toI32();
   vineyard.elevation = event.params.elevation.toI32();
-  if (event.params.elevationNegative.toI32() == 1) {
-    vineyard.elevation *= -1;
-  }
   vineyard.soil = event.params.soilType.toI32();
+  vineyard.vitalized = false;
   vineyard.save();
 
   let vineProtocol = VineProtocol.load("0") as VineProtocol;
@@ -48,7 +46,7 @@ export function handleVineyardMinted(event: VineyardMinted): void {
 
   let contract = SPContract.bind(
     // SET TO CURRENT NETWORK CONFIG
-    Address.fromString("0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e")
+    Address.fromString("0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82")
   );
   vineProtocol.currentPrice = contract.getSalesPrice(
     BigInt.fromI32(vineProtocol.mintedVineyards)
@@ -68,6 +66,8 @@ export function handlePlanted(event: Planted): void {
   vineyard.seasonsPlanted = vineyard.seasonsPlanted.concat([
     event.params.season.toI32(),
   ]);
+  vineyard.witherDeadline = BigInt.fromI32(0);
+  vineyard.vitalized = false;
   vineyard.save();
 }
 
@@ -104,6 +104,9 @@ export function handleAddressesSet(event: AddressesSet): void {
 
     let account = new Account(ZERO_ADDRESS);
     account.vinegarBalance = BigInt.fromString("0");
+    account.giveawayBalance = BigInt.fromString("0");
+    account.giveawayAllowance = BigInt.fromString("0");
+    account.grapeBalance = BigInt.fromString("0");
     account.save();
   }
 

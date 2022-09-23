@@ -49,6 +49,10 @@ type Vineyard @entity {
   bottles: [Bottle!] @derivedFrom(field: "from")
   seasonsPlanted: [Int!]!
   seasonsHarvested: [Int!]!
+
+  witherDeadline: BigInt
+
+  vitalized: Boolean
 }
 
 type Account @entity {
@@ -61,6 +65,8 @@ type Account @entity {
   giveawayAllowance: BigInt!
 
   claimedDiscount: Boolean
+
+  grapeBalance: BigInt!
 }
 
 enum UriType {

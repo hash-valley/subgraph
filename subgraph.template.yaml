@@ -33,7 +33,7 @@ dataSources:
           handler: handleStart
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleVineyardTransfer
-        - event: VineyardMinted(uint256,uint256,uint256,uint256,uint256)
+        - event: VineyardMinted(uint256,int256,int256,int256)
           handler: handleVineyardMinted
         - event: SprinklerPurchased(uint256)
           handler: handleSprinklerPurchased
@@ -168,6 +168,54 @@ dataSources:
         - event:  Approval(indexed address,indexed address,uint256)
           handler: handleGiveawayApproval
       file: ./src/giveaway.ts
+  - kind: ethereum/contract
+    name: Grape
+    network: {{ network }}
+    source:
+      address: '{{ grape_address }}'
+      abi: Grape
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - Vineyard
+        - Bottle
+      abis:
+        - name: Grape
+          file: ../contracts/abis/Vinegar.json
+      eventHandlers:
+        - event:  Transfer(indexed address,indexed address,uint256)
+          handler: handleGrapeTransfer
+      file: ./src/giveaway.ts
+  - kind: ethereum/contract
+    name: Alchemy
+    network: {{ network }}
+    source:
+      address: '{{ vinegar_address }}'
+      abi: Alchemy
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - Vineyard
+        - Bottle
+      abis:
+        - name: Alchemy
+          file: ../contracts/abis/Alchemy.json
+      eventHandlers:
+        - event:  Wither(uint256,uint256,uint256)
+          handler: handleWither
+        - event:  Defend(uint256,uint256)
+          handler: handleDefend
+        - event:  Vitality(uint256,uint256)
+          handler: handleVitality
+      file: ./src/alchemy.ts
 
   - kind: ethereum/contract
     name: WineUri

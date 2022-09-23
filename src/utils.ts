@@ -10,6 +10,7 @@ export function getOrCreateAccount(address: Bytes): Account {
     account.vinegarBalance = BigInt.fromString("0");
     account.giveawayBalance = BigInt.fromString("0");
     account.giveawayAllowance = BigInt.fromString("0");
+    account.grapeBalance = BigInt.fromString("0");
     account.save();
   }
   return account as Account;
