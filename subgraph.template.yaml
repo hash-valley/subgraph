@@ -43,6 +43,8 @@ dataSources:
           handler: handleHarvested
         - event: GrapesHarvested(uint256,uint256,uint256,uint256)
           handler: handleGrapesHarvested
+        - event: LocaleUnlocked(int256)
+          handler: handleLocaleUnlocked
       file: ./src/vineyard.ts
   - kind: ethereum/contract
     name: WineBottle

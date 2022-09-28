@@ -17,6 +17,8 @@ type VineProtocol @entity {
 
   bottleImgVersions: Int!
   vineImgVersions: Int!
+
+  locales: BigInt
 }
 
 type Bottle @entity {

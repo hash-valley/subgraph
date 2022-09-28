@@ -7,6 +7,7 @@ import {
   Start,
   SprinklerPurchased,
   GrapesHarvested,
+  LocaleUnlocked,
 } from "../generated/Vineyard/Vineyard";
 import {
   AddressesSet,
@@ -151,4 +152,10 @@ export function handleGrapesHarvested(event: GrapesHarvested): void {
   grapeStatus.harvested = event.params.harvested;
   grapeStatus.remaining = event.params.remaining;
   grapeStatus.save();
+}
+
+export function handleLocaleUnlocked(event: LocaleUnlocked): void {
+  let vineProtocol = VineProtocol.load("0") as VineProtocol;
+  vineProtocol.locales = event.params.locales;
+  vineProtocol.save();
 }
