@@ -105,20 +105,18 @@ export function handleStart(event: Start): void {
 
 export function handleAddressesSet(event: AddressesSet): void {
   let vineProtocol = VineProtocol.load("0");
-  if (vineProtocol == null) {
-    vineProtocol = new VineProtocol("0");
-    vineProtocol.gameStarted = false;
-    vineProtocol.mintedVineyards = 0;
-    vineProtocol.bottleImgVersions = 1;
-    vineProtocol.vineImgVersions = 1;
+  vineProtocol = new VineProtocol("0");
+  vineProtocol.gameStarted = false;
+  vineProtocol.mintedVineyards = 0;
+  vineProtocol.bottleImgVersions = 1;
+  vineProtocol.vineImgVersions = 1;
 
-    let account = new Account(ZERO_ADDRESS);
-    account.vinegarBalance = BigInt.fromString("0");
-    account.giveawayBalance = BigInt.fromString("0");
-    account.giveawayAllowance = BigInt.fromString("0");
-    account.grapeBalance = BigInt.fromString("0");
-    account.save();
-  }
+  let account = new Account(ZERO_ADDRESS);
+  account.vinegarBalance = BigInt.fromString("0");
+  account.giveawayBalance = BigInt.fromString("0");
+  account.giveawayAllowance = BigInt.fromString("0");
+  account.grapeBalance = BigInt.fromString("0");
+  account.save();
 
   let asContract = ASContract.bind(event.address);
   vineProtocol.cellar = asContract.cellar();
@@ -155,7 +153,19 @@ export function handleGrapesHarvested(event: GrapesHarvested): void {
 }
 
 export function handleLocaleUnlocked(event: LocaleUnlocked): void {
-  let vineProtocol = VineProtocol.load("0") as VineProtocol;
-  vineProtocol.locales = event.params.locales;
+  let vineProtocol = VineProtocol.load("0");
+  if (vineProtocol == null) {
+    vineProtocol = new VineProtocol("0");
+
+    vineProtocol.cellar = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.vinegar = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.giveaway = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.vineyard = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.bottle = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.royalty = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.wineUri = Address.fromString(ZERO_ADDRESS);
+    vineProtocol.vineUri = Address.fromString(ZERO_ADDRESS);
+  }
+  vineProtocol.locales = event.params.locales.toI32();
   vineProtocol.save();
 }

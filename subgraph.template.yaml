@@ -277,3 +277,24 @@ dataSources:
         - event: Setup(string,address)
           handler: handleSetup
       file: ./src/vineUri.ts
+
+  - kind: ethereum/contract
+    name: Badge
+    network: {{ network }}
+    source:
+      address: '{{ badge_address }}'
+      abi: Badge
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Account
+      abis:
+        - name: Badge
+          file: ../contracts/abis/Badge.json
+      eventHandlers:
+        - event:  Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleBadgeTransfer
+      file: ./src/badge.ts

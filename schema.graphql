@@ -1,10 +1,10 @@
 type VineProtocol @entity {
   id: ID!
-  gameStarted: Boolean!
+  gameStarted: Boolean
   startTime: BigInt
-  maxVineyards: Int!
-  mintedVineyards: Int!
-  currentPrice: BigInt!
+  maxVineyards: Int
+  mintedVineyards: Int
+  currentPrice: BigInt
 
   cellar: Bytes!
   vinegar: Bytes!
@@ -15,10 +15,10 @@ type VineProtocol @entity {
   wineUri: Bytes!
   vineUri: Bytes!
 
-  bottleImgVersions: Int!
-  vineImgVersions: Int!
+  bottleImgVersions: Int
+  vineImgVersions: Int
 
-  locales: BigInt
+  locales: Int
 }
 
 type Bottle @entity {
@@ -79,6 +79,9 @@ type Account @entity {
   claimedDiscount: Boolean
 
   grapeBalance: BigInt!
+
+  earlySupporter: Boolean
+  badgeCount: Int
 }
 
 enum UriType {
