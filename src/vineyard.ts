@@ -32,6 +32,8 @@ export function handleVineyardTransfer(event: VineyardTransfer): void {
     vineyard.elevation = 0;
     vineyard.soil = 0;
     vineyard.xp = BigInt.fromI32(0);
+    vineyard.witherDeadline = BigInt.fromI32(0);
+    vineyard.vitalized = false;
     vineyard.seasonsPlanted = [];
     vineyard.seasonsHarvested = [];
   }
