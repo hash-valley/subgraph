@@ -21,7 +21,11 @@ import {
   GrapeStatus,
 } from "../generated/schema";
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
+import {
+  getOrCreateAccount,
+  SALES_PARAMS_ADDRESS,
+  ZERO_ADDRESS,
+} from "./utils";
 import { SaleParams as SPContract } from "../generated/Vineyard/SaleParams";
 
 export function handleVineyardTransfer(event: VineyardTransfer): void {
@@ -54,10 +58,7 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   let vineProtocol = VineProtocol.load("0") as VineProtocol;
   vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1;
 
-  let contract = SPContract.bind(
-    // SET TO CURRENT NETWORK CONFIG
-    Address.fromString("0x9A676e781A523b5d0C0e43731313A708CB607508")
-  );
+  let contract = SPContract.bind(Address.fromString(SALES_PARAMS_ADDRESS));
   vineProtocol.currentPrice = contract.getSalesPrice(
     BigInt.fromI32(vineProtocol.mintedVineyards)
   );
