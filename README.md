@@ -4,4 +4,4 @@ An example to help you get started with The Graph. For more information see the 
 
 ## Setup
 
-need to manually set sales params address in `vineyard.ts`
+need to manually set sales params address in `utils.ts`
