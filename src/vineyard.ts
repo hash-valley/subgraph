@@ -13,19 +13,9 @@ import {
   AddressesSet,
   AddressStorage as ASContract,
 } from "../generated/AddressStorage/AddressStorage";
-import {
-  Vineyard,
-  Bottle,
-  Account,
-  VineProtocol,
-  GrapeStatus,
-} from "../generated/schema";
+import { Vineyard, Bottle, Account, VineProtocol, GrapeStatus } from "../generated/schema";
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import {
-  getOrCreateAccount,
-  SALES_PARAMS_ADDRESS,
-  ZERO_ADDRESS,
-} from "./utils";
+import { getOrCreateAccount, SALES_PARAMS_ADDRESS, ZERO_ADDRESS } from "./utils";
 import { SaleParams as SPContract } from "../generated/Vineyard/SaleParams";
 
 export function handleVineyardTransfer(event: VineyardTransfer): void {
@@ -59,9 +49,7 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1;
 
   let contract = SPContract.bind(Address.fromString(SALES_PARAMS_ADDRESS));
-  vineProtocol.currentPrice = contract.getSalesPrice(
-    BigInt.fromI32(vineProtocol.mintedVineyards)
-  );
+  vineProtocol.currentPrice = contract.getSalesPrice(BigInt.fromI32(vineProtocol.mintedVineyards));
   vineProtocol.save();
 }
 
@@ -74,9 +62,7 @@ export function handleSprinklerPurchased(event: SprinklerPurchased): void {
 
 export function handlePlanted(event: Planted): void {
   let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
-  vineyard.seasonsPlanted = vineyard.seasonsPlanted.concat([
-    event.params.season.toI32(),
-  ]);
+  vineyard.seasonsPlanted = vineyard.seasonsPlanted.concat([event.params.season.toI32()]);
   vineyard.witherDeadline = BigInt.fromI32(0);
   vineyard.vitalized = false;
   vineyard.save();
@@ -84,9 +70,7 @@ export function handlePlanted(event: Planted): void {
 
 export function handleHarvested(event: Harvested): void {
   let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
-  vineyard.seasonsHarvested = vineyard.seasonsHarvested.concat([
-    event.params.season.toI32(),
-  ]);
+  vineyard.seasonsHarvested = vineyard.seasonsHarvested.concat([event.params.season.toI32()]);
 
   let contract = VineContract.bind(event.address);
   vineyard.xp = contract.xp(event.params.tokenId);

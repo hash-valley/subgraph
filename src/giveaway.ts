@@ -1,4 +1,7 @@
-import { Transfer as GiveawayTransfer, Approval as GiveawayApproval } from "../generated/Vinegar/Vinegar";
+import {
+  Transfer as GiveawayTransfer,
+  Approval as GiveawayApproval,
+} from "../generated/Vinegar/Vinegar";
 import { getOrCreateAccount, ZERO_ADDRESS } from "./utils";
 import { VineProtocol } from "../generated/schema";
 
@@ -19,8 +22,8 @@ export function handleGiveawayTransfer(event: GiveawayTransfer): void {
 export function handleGiveawayApproval(event: GiveawayApproval): void {
   let protocol = VineProtocol.load("0") as VineProtocol;
   if (event.params.spender == protocol.giveaway) {
-    let account = getOrCreateAccount(event.params.owner)
-    account.giveawayAllowance = account.giveawayAllowance.plus(event.params.value)
-    account.save()
+    let account = getOrCreateAccount(event.params.owner);
+    account.giveawayAllowance = account.giveawayAllowance.plus(event.params.value);
+    account.save();
   }
 }

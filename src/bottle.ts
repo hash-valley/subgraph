@@ -21,10 +21,7 @@ export function handleBottleTransfer(event: BottleTransfer): void {
   }
 
   let cellarAddress = (VineProtocol.load("0") as VineProtocol).cellar.toHex();
-  if (
-    event.params.to.toHex() != cellarAddress &&
-    event.params.to.toHex() != ZERO_ADDRESS
-  ) {
+  if (event.params.to.toHex() != cellarAddress && event.params.to.toHex() != ZERO_ADDRESS) {
     let account = getOrCreateAccount(event.params.to);
     bottle.owner = account.id;
   }

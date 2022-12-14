@@ -4,8 +4,7 @@ import { Account } from "../generated/schema";
 export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // SET TO CURRENT NETWORK CONFIG
-export const SALES_PARAMS_ADDRESS =
-  "0x5b4BfDEDf7c1e70B6eaE2665ce630FEC54950F16"; // GOERLI
+export const SALES_PARAMS_ADDRESS = "0x5b4BfDEDf7c1e70B6eaE2665ce630FEC54950F16"; // GOERLI
 
 export function getOrCreateAccount(address: Bytes): Account {
   let account = Account.load(address.toHex());

@@ -1,10 +1,5 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import {
-  Staked,
-  Withdrawn,
-  Spoiled,
-  Cellar as CellarContract,
-} from "../generated/Cellar/Cellar";
+import { Staked, Withdrawn, Spoiled, Cellar as CellarContract } from "../generated/Cellar/Cellar";
 import { Bottle, VineProtocol } from "../generated/schema";
 import { WineBottle as BottleContract } from "../generated/WineBottle/WineBottle";
 
@@ -28,9 +23,7 @@ export function handleSpoiled(event: Spoiled): void {
   bottle.spoiled = true;
   bottle.inCellar = false;
 
-  let cellarTime = CellarContract.bind(event.address).cellarTime(
-    event.params.tokenId
-  );
+  let cellarTime = CellarContract.bind(event.address).cellarTime(event.params.tokenId);
 
   let vineProtocol = VineProtocol.load("0") as VineProtocol;
   let bottleAddress = Address.fromString(vineProtocol.bottle.toHex());
