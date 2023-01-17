@@ -55,8 +55,7 @@ export function handleVineyardMinted(event: VineyardMinted): void {
 
 export function handleSprinklerPurchased(event: SprinklerPurchased): void {
   let vineyard = Vineyard.load(event.params.tokenId.toString()) as Vineyard;
-  let threeYears = BigInt.fromI32(94348800);
-  vineyard.sprinklerExpires = event.block.timestamp.plus(threeYears);
+  vineyard.sprinklerExpires = event.params.decayTime;
   vineyard.save();
 }
 

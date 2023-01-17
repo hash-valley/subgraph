@@ -35,7 +35,7 @@ dataSources:
           handler: handleVineyardTransfer
         - event: VineyardMinted(uint256,int256,int256,int256)
           handler: handleVineyardMinted
-        - event: SprinklerPurchased(uint256)
+        - event: SprinklerPurchased(uint256,uint256)
           handler: handleSprinklerPurchased
         - event: Planted(uint256,uint256)
           handler: handlePlanted
