@@ -49,7 +49,18 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1;
 
   let contract = SPContract.bind(Address.fromString(SALES_PARAMS_ADDRESS));
-  vineProtocol.currentPrice = contract.getSalesPrice(BigInt.fromI32(vineProtocol.mintedVineyards));
+  // vineProtocol.currentPrice = contract.getSalesPrice(BigInt.fromI32(vineProtocol.mintedVineyards));
+  if (vineProtocol.mintedVineyards < 1500) {
+    vineProtocol.currentPrice = BigInt.fromString('0')
+  } else if (vineProtocol.mintedVineyards < 2500) {
+    vineProtocol.currentPrice = BigInt.fromString('10000000000000000')
+  } else if (vineProtocol.mintedVineyards < 3500) {
+    vineProtocol.currentPrice = BigInt.fromString('20000000000000000')
+  } else if (vineProtocol.mintedVineyards < 4500) {
+    vineProtocol.currentPrice = BigInt.fromString('30000000000000000')
+  } else {
+    vineProtocol.currentPrice = BigInt.fromString('40000000000000000')
+  }
   vineProtocol.save();
 }
 
