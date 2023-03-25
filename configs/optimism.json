@@ -1,6 +1,6 @@
 {
   "network": "optimism",
-  "startBlock": 77791907,
+  "startBlock": 77791906,
   "vine_address": "0xE55A395d98dAd2D4B0F1C1186dE828EeD9a4F5AB",
   "cellar_address": "0xd2f570F0bd8AC97D153fCf7B3BDe646A74c99f0d",
   "bottle_address": "0x94b9977d46b3c09923E8B73e5DECfc873009EffA",
@@ -8,12 +8,12 @@
   "giveaway_address": "0xB7261f780b779D881f6742437499b1c59c2bFfb5",
   "address_storage_address": "0xC90e001D24Fc128f94A42a34b655A9DDA50699D7",
   "royalty_address": "0x1dA535492b761630aA15248eB93a8875D8E9Cc59",
-  "wine_uri_address": "0x013299CC6Fd6149E6ee8E5610001dFe31212b8e3",
-  "vine_uri_address": "0x5E24e6Bf81208646cd24648423270C521cA337d1",
+  "wine_uri_address": "0x9677Ef507943fFc9EB4e46cE8EAf81750D1f3707",
+  "vine_uri_address": "0x883A91F3EFDdD29f103f89b24BA110E9B1E05DBc",
   "multi_address": "0xbF386d8f4B2A045Fe8A5cd670e58A52A01af5fF3",
   "sale_params_address": "0x0685B1770F8A48CA1812AB68F627cBF23e7c5bEa",
   "alchemy_address": "0x792fB90718Af95777856C3EF6F24e97e4436EdD2",
   "grape_address": "0x22E9E9Ba27A80054dF01A12CeAFc4f4699360eAA",
   "spell_params_address": "0xdb546Cb703A8aBbE8b98155b9E56Dd0e69C37426",
-  "badge_address": "0xDc4096412eE81e9552F1798f4a09C73290cBEAdc"
+  "badge_address": "0x64FA5e7feD435a41D1EBbe8e433505136Ee54C6c"
 }
