@@ -45,21 +45,19 @@ export function handleVineyardMinted(event: VineyardMinted): void {
   vineyard.vitalized = false;
   vineyard.save();
 
-  let vineProtocol = VineProtocol.load("0") as VineProtocol;
+  let vineProtocol = getOrCreateProtocol();
   vineProtocol.mintedVineyards = vineProtocol.mintedVineyards + 1;
 
-  // let contract = SPContract.bind(Address.fromString(SALES_PARAMS_ADDRESS));
-  // vineProtocol.currentPrice = contract.getSalesPrice(BigInt.fromI32(vineProtocol.mintedVineyards));
   if (vineProtocol.mintedVineyards < 1500) {
-    vineProtocol.currentPrice = BigInt.fromString('0')
+    vineProtocol.currentPrice = BigInt.fromString("0");
   } else if (vineProtocol.mintedVineyards < 2500) {
-    vineProtocol.currentPrice = BigInt.fromString('10000000000000000')
+    vineProtocol.currentPrice = BigInt.fromString("10000000000000000");
   } else if (vineProtocol.mintedVineyards < 3500) {
-    vineProtocol.currentPrice = BigInt.fromString('20000000000000000')
+    vineProtocol.currentPrice = BigInt.fromString("20000000000000000");
   } else if (vineProtocol.mintedVineyards < 4500) {
-    vineProtocol.currentPrice = BigInt.fromString('30000000000000000')
+    vineProtocol.currentPrice = BigInt.fromString("30000000000000000");
   } else {
-    vineProtocol.currentPrice = BigInt.fromString('40000000000000000')
+    vineProtocol.currentPrice = BigInt.fromString("40000000000000000");
   }
   vineProtocol.save();
 }
@@ -99,34 +97,17 @@ export function handleStart(event: Start): void {
 }
 
 export function handleAddressesSet(event: AddressesSet): void {
-  let vineProtocol = VineProtocol.load("0");
-  vineProtocol = new VineProtocol("0");
-  vineProtocol.gameStarted = false;
-  vineProtocol.mintedVineyards = 0;
-  vineProtocol.bottleImgVersions = 1;
-  vineProtocol.vineImgVersions = 1;
-
-  let account = new Account(ZERO_ADDRESS);
-  account.vinegarBalance = BigInt.fromString("0");
-  account.giveawayBalance = BigInt.fromString("0");
-  account.giveawayAllowance = BigInt.fromString("0");
-  account.grapeBalance = BigInt.fromString("0");
-  account.save();
-
   let asContract = ASContract.bind(event.address);
+  let vineProtocol = getOrCreateProtocol();
+
   vineProtocol.cellar = asContract.cellar();
   vineProtocol.vinegar = asContract.vinegar();
   vineProtocol.giveaway = asContract.giveawayToken();
-  let vineAddress = asContract.vineyard();
-  vineProtocol.vineyard = vineAddress;
+  vineProtocol.vineyard = asContract.vineyard();
   vineProtocol.bottle = asContract.bottle();
   vineProtocol.royalty = asContract.royaltyManager();
   vineProtocol.wineUri = asContract.wineUri();
   vineProtocol.vineUri = asContract.vineUri();
-
-  let vineContract = VineContract.bind(vineAddress);
-  vineProtocol.maxVineyards = vineContract.maxVineyards().toI32();
-  vineProtocol.currentPrice = BigInt.fromString("0");
 
   vineProtocol.save();
 }
@@ -148,9 +129,23 @@ export function handleGrapesHarvested(event: GrapesHarvested): void {
 }
 
 export function handleLocaleUnlocked(event: LocaleUnlocked): void {
+  let vineProtocol = getOrCreateProtocol();
+
+  vineProtocol.locales = event.params.locales.toI32();
+  vineProtocol.save();
+}
+
+function getOrCreateProtocol(): VineProtocol {
   let vineProtocol = VineProtocol.load("0");
-  if (vineProtocol == null) {
+  if (!vineProtocol || vineProtocol == null) {
     vineProtocol = new VineProtocol("0");
+
+    vineProtocol.gameStarted = false;
+    vineProtocol.mintedVineyards = 0;
+    vineProtocol.bottleImgVersions = 1;
+    vineProtocol.vineImgVersions = 1;
+    vineProtocol.maxVineyards = 4500;
+    vineProtocol.currentPrice = BigInt.fromString("0");
 
     vineProtocol.cellar = Address.fromString(ZERO_ADDRESS);
     vineProtocol.vinegar = Address.fromString(ZERO_ADDRESS);
@@ -161,6 +156,5 @@ export function handleLocaleUnlocked(event: LocaleUnlocked): void {
     vineProtocol.wineUri = Address.fromString(ZERO_ADDRESS);
     vineProtocol.vineUri = Address.fromString(ZERO_ADDRESS);
   }
-  vineProtocol.locales = event.params.locales.toI32();
-  vineProtocol.save();
+  return vineProtocol as VineProtocol;
 }
